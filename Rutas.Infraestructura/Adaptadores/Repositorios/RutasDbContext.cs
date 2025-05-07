@@ -11,10 +11,12 @@ namespace PlanesVentas.Infraestructura.Adaptadores.Repositorios
         public RutasDbContext(DbContextOptions<RutasDbContext> options): base(options){ }
 
         public DbSet<Ruta> Rutas { get; set; }
-        
+        public DbSet<RutaPedido> RutasPedidos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new RutasConfiguracion());
+            modelBuilder.ApplyConfiguration(new RutaPedidoConfiguracion());
         }
     }
 }

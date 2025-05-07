@@ -122,5 +122,34 @@ namespace Rutas.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Asociar una lista de pedidos a una ruta de entrega
+        /// </summary>
+        /// <response code="200"> 
+        /// RutaPedidoOut: objeto de salida <br/>
+        /// Resultado: Enumerador de la operación, Exitoso = 1, Error = 2, SinRegistros = 3 <br/>
+        /// Mensaje: Mensaje de la operación <br/>
+        /// Status: Código de estado HTTP <br/>
+        /// </response>
+        [HttpPost]
+        [Route("{IdRuta}/Pedidos")]
+        [ProducesResponseType(typeof(RutaOut), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), 401)]
+        [ProducesResponseType(typeof(ProblemDetails), 500)]
+        public async Task<IActionResult> AsociarPedidos([FromBody] List<RutaPedidoIn> pedidos, [FromRoute] Guid IdRuta)
+        {
+            var output = await _mediator.Send(new AgregarPedidoComando(IdRuta, pedidos));
+
+            if (output.Resultado != Resultado.Error)
+            {
+                return Ok(output);
+            }
+            else
+            {
+                return Problem(output.Mensaje, statusCode: (int)output.Status);
+            }
+        }
+
     }
 }
