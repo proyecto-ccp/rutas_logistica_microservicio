@@ -19,4 +19,11 @@ namespace Rutas.Aplicacion.Rutas.Comandos
         string MetodoTransporte
         ) : IRequest<RutaOut>;
 
+    public record AgregarPedidoComando (
+        [Required(ErrorMessage = "El campo IdRuta es obligatorio")]
+        Guid IdRuta,
+        [Required(ErrorMessage = "Los Pedidos son obligatorios")]
+        List<RutaPedidoIn> Pedidos
+     ) : IRequest<RutaOut>;
+
 }

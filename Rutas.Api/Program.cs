@@ -2,8 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using PlanesVentas.Infraestructura.Adaptadores.Repositorios;
 using Rutas.Dominio.Puertos.Repositorios;
+using Rutas.Dominio.Servicios.Pedidos;
 using Rutas.Dominio.Servicios.Rutas;
 using Rutas.Infraestructura.Adaptadores.RepositorioGenerico;
+using Rutas.Infraestructura.Adaptadores.Repositorios;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,10 +65,14 @@ builder.Services.AddDbContext<RutasDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("RutasDbContext")), ServiceLifetime.Transient);
 builder.Services.AddTransient(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
 builder.Services.AddTransient<IRutasRepositorio, RutasRepositorio>();
+builder.Services.AddTransient<IRutaPedidoRepositorio, RutaPedidoRepositorio>();
 //Capa Dominio - Servicios
 builder.Services.AddTransient<CrearRuta>();
 builder.Services.AddTransient<ConsultarRuta>();
 builder.Services.AddTransient<ObtenerRutas>();
+builder.Services.AddTransient<AgregarPedido>();
+builder.Services.AddTransient<ConsultarEstadoPedido>();
+builder.Services.AddTransient<ConsultarIdPedido>();
 
 var app = builder.Build();
 

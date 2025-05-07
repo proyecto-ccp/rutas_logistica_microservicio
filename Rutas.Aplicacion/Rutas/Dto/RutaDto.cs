@@ -14,6 +14,7 @@ namespace Rutas.Aplicacion.Rutas.Dto
         public string MetodoTransporte { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        public List<RutaPedidoIn> Pedidos { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
