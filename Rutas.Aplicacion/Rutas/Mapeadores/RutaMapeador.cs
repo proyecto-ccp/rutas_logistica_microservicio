@@ -12,7 +12,9 @@ namespace Rutas.Aplicacion.Rutas.Mapeadores
         {
             CreateMap<Ruta, RutaDto>().ReverseMap();
             CreateMap<CrearRutaComando, Ruta>().ReverseMap();
-            
+
+            CreateMap<RutaPedidoIn, RutaPedido>().ReverseMap();
+
         }
         
     }
