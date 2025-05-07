@@ -10,6 +10,11 @@ namespace Rutas.Aplicacion.Rutas.Consultas
         [Required(ErrorMessage = "El campo IdRuta es obligatorio")]
         Guid IdRuta
         ) : IRequest<RutaOut>;
+    
+    public record RutaPorIdPedidoConsulta(
+        [Required(ErrorMessage = "El campo IdPedido es obligatorio")]
+        Guid IdPedido
+        ) : IRequest<RutaOut>;
 
 
 }

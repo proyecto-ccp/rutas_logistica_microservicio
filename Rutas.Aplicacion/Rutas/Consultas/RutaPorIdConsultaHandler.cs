@@ -4,6 +4,7 @@ using AutoMapper;
 using MediatR;
 using Rutas.Aplicacion.Comun;
 using Rutas.Aplicacion.Rutas.Dto;
+using Rutas.Dominio.Servicios.Pedidos;
 using Rutas.Dominio.Servicios.Rutas;
 using System.Net;
 
@@ -13,15 +14,20 @@ namespace Rutas.Aplicacion.Rutas.Consultas
     {
         private readonly IMapper _mapper;
         private readonly ConsultarRuta _servicio;
+        private readonly ConsultarIdPedido _servicioPedidos;
 
-        public RutaPorIdConsultaHandler(IMapper mapper, ConsultarRuta servicio) 
+        public RutaPorIdConsultaHandler(IMapper mapper, ConsultarRuta servicio, ConsultarIdPedido servicioPedidos) 
         {
             _mapper = mapper;
             _servicio = servicio;
+            _servicioPedidos = servicioPedidos;
         }
         public async Task<RutaOut> Handle(RutaPorIdConsulta request, CancellationToken cancellationToken)
         {
-            RutaOut output = new();
+            RutaOut output = new()
+            {
+                Ruta = new RutaDto()
+            };
 
             try
             {
@@ -38,6 +44,9 @@ namespace Rutas.Aplicacion.Rutas.Consultas
                 else
                 {
                     output.Ruta = _mapper.Map<RutaDto>(ruta);
+
+                    var pedidos = await _servicioPedidos.Ejecutar(request.IdRuta) ?? [];
+                    output.Ruta.Pedidos = _mapper.Map<List<RutaPedidoIn>>(pedidos);
                     output.Resultado = Resultado.Exitoso;
                     output.Mensaje = "Consulta exitosa";
                     output.Status = HttpStatusCode.OK;
