@@ -2,7 +2,7 @@
 using Rutas.Dominio.Entidades;
 using Rutas.Dominio.Puertos.Repositorios;
 
-namespace Rutas.Dominio.Servicios.Pedidos
+namespace Rutas.Dominio.Servicios.RutaPedidos
 {
     public class ConsultarEstadoPedido(IRutaPedidoRepositorio rutaPedidoRepositorio)
     {
