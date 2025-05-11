@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using PlanesVentas.Infraestructura.Adaptadores.Repositorios;
+using Rutas.Infraestructura.Adaptadores.Integraciones;
+using Rutas.Dominio.Puertos.Integraciones;
 using Rutas.Dominio.Puertos.Repositorios;
 using Rutas.Dominio.Servicios.Pedidos;
+using Rutas.Dominio.Servicios.RutaPedidos;
 using Rutas.Dominio.Servicios.Rutas;
 using Rutas.Infraestructura.Adaptadores.RepositorioGenerico;
 using Rutas.Infraestructura.Adaptadores.Repositorios;
@@ -27,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Version = "V.1.0.1",
+        Version = "V.1.0.2",
         Title = "Servicio Rutas de entrega",
         Description = "Administración de las rutas de entrega"
     });
@@ -66,6 +69,8 @@ builder.Services.AddDbContext<RutasDbContext>(options =>
 builder.Services.AddTransient(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
 builder.Services.AddTransient<IRutasRepositorio, RutasRepositorio>();
 builder.Services.AddTransient<IRutaPedidoRepositorio, RutaPedidoRepositorio>();
+builder.Services.AddTransient<IParametroRepositorio, ParametroRepositorio>();
+builder.Services.AddHttpClient<IServicioPedidosApi, ServicioPedidosApi>(); 
 //Capa Dominio - Servicios
 builder.Services.AddTransient<CrearRuta>();
 builder.Services.AddTransient<ConsultarRuta>();
@@ -73,6 +78,7 @@ builder.Services.AddTransient<ObtenerRutas>();
 builder.Services.AddTransient<AgregarPedido>();
 builder.Services.AddTransient<ConsultarEstadoPedido>();
 builder.Services.AddTransient<ConsultarIdPedido>();
+builder.Services.AddTransient<ServicioPedido>();
 
 var app = builder.Build();
 

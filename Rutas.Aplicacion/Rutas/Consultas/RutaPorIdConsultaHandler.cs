@@ -4,7 +4,7 @@ using AutoMapper;
 using MediatR;
 using Rutas.Aplicacion.Comun;
 using Rutas.Aplicacion.Rutas.Dto;
-using Rutas.Dominio.Servicios.Pedidos;
+using Rutas.Dominio.Servicios.RutaPedidos;
 using Rutas.Dominio.Servicios.Rutas;
 using System.Net;
 
