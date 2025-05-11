@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Rutas.Infraestructura.Adaptadores.Configuraciones;
 using Rutas.Dominio.Entidades;
+using Rutas.Dominio.ObjetoValor;
 
 namespace PlanesVentas.Infraestructura.Adaptadores.Repositorios
 {
@@ -12,11 +13,13 @@ namespace PlanesVentas.Infraestructura.Adaptadores.Repositorios
 
         public DbSet<Ruta> Rutas { get; set; }
         public DbSet<RutaPedido> RutasPedidos { get; set; }
+        public DbSet<Parametro> Parametros { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new RutasConfiguracion());
             modelBuilder.ApplyConfiguration(new RutaPedidoConfiguracion());
+            modelBuilder.ApplyConfiguration(new ParametroConfiguracion());
         }
     }
 }
